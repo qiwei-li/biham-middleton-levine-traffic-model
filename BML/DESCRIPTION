@@ -1,0 +1,10 @@
+Package: bml
+Title: Biham Middleton Levine Traffic Model Toolkit
+Description: Tools to simulate Biham Middleton Levine Traffic Models
+	and detect phase transition point.
+Version: 0.1-0
+License: BSD
+Author: Qiwei Li
+Maintainer: Qiwei Li  <qwli@ucdavis.edu>
+
+  
