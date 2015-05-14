@@ -1,8 +1,10 @@
-plot.BML = function(grid, ifadd=TRUE){
+plot.BML = function(x, ifadd = TRUE, ...){
+  grid = x
   image(t(grid)[,nrow(grid):1], axes = FALSE, add=ifadd, col = c("white", "red", "blue"))
 }
 
-summary.BML = function(grid){
+summary.BML = function(object, ...){
+  grid = object
   r = nrow(grid)
   c = ncol(grid)
   size = r*c

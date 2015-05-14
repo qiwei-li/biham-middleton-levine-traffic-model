@@ -28,8 +28,7 @@ createBMLGrid = function(r, c, ncars=c(red=0, blue=0), density=0){
   structure(matrix(sample(colors, r*c), nrow = r), class=c("BML", "matrix"))
 }
 
-runBMLGrid = function(grid, numSteps, ifPlot = FALSE, method){
-  numSteps = floor(numSteps/2)
+runBMLGrid = function(grid, numSteps, ifPlot = FALSE, ifVelocity = FALSE, method){
   if(method == "fast"){
     moveBlue = moveBlue.fast
     moveRed = moveRed.fast
@@ -45,14 +44,16 @@ runBMLGrid = function(grid, numSteps, ifPlot = FALSE, method){
   else
     stop("Error: Invalid method")
   
-  velocity = rep(NA, numSteps)
+  n = floor(numSteps/2)
+  velocity = rep(NA, n)
   r = nrow(grid)
   c = ncol(grid)
+  
   if(ifPlot){
     setX11(r, c)
     par(mar=rep(0,4))
     plot.BML(grid, ifadd=FALSE)
-    for(i in 1:numSteps){
+    for(i in 1:n){
       mb = moveBlue(grid, r, c)
       grid = mb$grid
       plot.BML(grid)
@@ -61,21 +62,34 @@ runBMLGrid = function(grid, numSteps, ifPlot = FALSE, method){
       plot.BML(grid)
       velocity[i] = mb$velocity + mr$velocity
     }
+    if(numSteps%%2==1){
+      mb = moveBlue(grid, r, c)
+      grid = mb$grid
+      plot.BML(grid)
+    }
     dev.off()
-    par(mar=rep(5,4))
-    plotVelocity(grid, velocity)
+    if(ifVelocity){
+      par(mar=rep(5,4))
+      plotVelocity(grid, velocity)
+    }
     grid
   }
   else{
-    for(i in 1:numSteps){
+    for(i in 1:n){
       mb = moveBlue(grid, r, c)
       grid = mb$grid
       mr = moveRed(grid, r, c)
       grid = mr$grid
       velocity[i] = mb$velocity + mr$velocity
     }
-    par(mar=rep(5,4))
-    plotVelocity(grid, velocity)
+    if(numSteps%%2==1){
+      mb = moveBlue(grid, r, c)
+      grid = mb$grid
+    }
+    if(ifVelocity){
+      par(mar=rep(5,4))
+      plotVelocity(grid, velocity)
+    }
     grid
   }  
 }

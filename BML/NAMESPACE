@@ -1,7 +1,10 @@
 export(runBMLGrid)
 export(createBMLGrid)
+export(crunBMLGrid)
+
 S3method(plot, BML)
 S3method(summary, BML)
 
+useDynLib(BML)
 
 
