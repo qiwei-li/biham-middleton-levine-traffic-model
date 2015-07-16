@@ -2,7 +2,7 @@
 Simulate Biham Middleton Levine Traffic Model and detect phase transitions.
 In this package, different implementations in R and C are explored. 
 See report 1 and 2 to learn more.
-
+For visulization, check out my shiny app at https://qiwei-li.shinyapps.io/shinyBML
 #License
 The MIT License (MIT)
 
